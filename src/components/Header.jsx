@@ -1,5 +1,4 @@
 import React from 'react';
-import { Sun } from 'lucide-react';
 
 export default function Header({ activeTab, setActiveTab }) {
   return (
@@ -44,16 +43,6 @@ export default function Header({ activeTab, setActiveTab }) {
             {activeTab === 'terms' && (
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-amber-500 rounded-full"></span>
             )}
-          </button>
-        </div>
-
-        {/* Theme icon */}
-        <div className="flex items-center gap-3">
-          <button 
-            className="w-9 h-9 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 hover:bg-amber-100 transition-colors"
-            title="Tema Amarelo & Branco"
-          >
-            <Sun className="w-4 h-4" />
           </button>
         </div>
       </div>
