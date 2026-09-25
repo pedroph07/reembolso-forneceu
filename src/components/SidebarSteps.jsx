@@ -1,7 +1,7 @@
 import React from 'react';
-import { Check, HelpCircle, ChevronRight, RefreshCw, Mail, Hash } from 'lucide-react';
+import { Check, RefreshCw, Mail, Hash } from 'lucide-react';
 
-export default function SidebarSteps({ currentStep, setStep, formData, resetForm, openSupportModal }) {
+export default function SidebarSteps({ currentStep, setStep, formData, resetForm }) {
   const steps = [
     { id: 1, label: '1. Identificação' },
     { id: 2, label: '2. Motivo' },
@@ -13,7 +13,7 @@ export default function SidebarSteps({ currentStep, setStep, formData, resetForm
     <aside className="w-full md:w-64 flex flex-col gap-6 shrink-0">
       {/* Etapas do Processo Card */}
       <div className="bg-white/90 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 shadow-card-shadow">
-        <h3 className="text-xs font-extrabold tracking-wider text-amber-900 uppercase mb-5">
+        <h3 className="text-xs font-extrabold tracking-wider text-amber-950 uppercase mb-5">
           Etapas do processo
         </h3>
 
@@ -55,7 +55,7 @@ export default function SidebarSteps({ currentStep, setStep, formData, resetForm
                 <div
                   className={`flex-1 py-1.5 px-3 rounded-lg text-sm font-semibold transition-all ${
                     isCurrent
-                      ? 'bg-amber-50 text-amber-900 border border-amber-300 font-bold'
+                      ? 'bg-amber-50 text-amber-950 border border-amber-300 font-bold'
                       : isCompleted
                       ? 'text-amber-800'
                       : 'text-gray-400'
@@ -70,23 +70,6 @@ export default function SidebarSteps({ currentStep, setStep, formData, resetForm
             );
           })}
         </div>
-      </div>
-
-      {/* Support Card */}
-      <div className="bg-white/90 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 flex flex-col gap-3 shadow-card-shadow">
-        <div className="w-8 h-8 rounded-full bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700">
-          <HelpCircle className="w-4 h-4" />
-        </div>
-        <p className="text-xs text-gray-600 leading-relaxed">
-          Dúvidas sobre o reembolso ou os nossos termos?
-        </p>
-        <button
-          onClick={openSupportModal}
-          className="text-xs text-amber-700 hover:text-amber-900 font-bold flex items-center gap-1 group text-left pt-1"
-        >
-          Fale com o suporte
-          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-        </button>
       </div>
 
       {/* Customer Info Card */}

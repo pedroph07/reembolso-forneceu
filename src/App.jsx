@@ -9,7 +9,6 @@ import StepProcessing from './components/steps/StepProcessing';
 import SlaTimer from './components/SlaTimer';
 import TermsOfService from './components/TermsOfService';
 import AdminDashboard from './components/AdminDashboard';
-import SupportModal from './components/SupportModal';
 
 // Initial mock data if empty
 const INITIAL_REQUESTS = [
@@ -37,7 +36,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('wizard');
   const [currentStep, setCurrentStep] = useState(1);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isSupportOpen, setIsSupportOpen] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -159,7 +157,6 @@ export default function App() {
               setStep={(s) => setCurrentStep(s)}
               formData={formData}
               resetForm={resetForm}
-              openSupportModal={() => setIsSupportOpen(true)}
             />
 
             {/* Step Wizard Container */}
@@ -203,7 +200,7 @@ export default function App() {
         )}
 
         {activeTab === 'terms' && (
-          <TermsOfService openSupportModal={() => setIsSupportOpen(true)} />
+          <TermsOfService />
         )}
 
         {activeTab === 'admin' && (
@@ -219,12 +216,6 @@ export default function App() {
       {(currentStep === 4 || activeRequest) && (
         <SlaTimer startTime={activeRequest?.timestamp || new Date().toISOString()} />
       )}
-
-      {/* Direct Support Modal */}
-      <SupportModal
-        isOpen={isSupportOpen}
-        onClose={() => setIsSupportOpen(false)}
-      />
     </div>
   );
 }

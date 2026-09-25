@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronRight, ShieldAlert, FileText, CheckCircle2, Lock, AlertOctagon, HelpCircle, Scale } from 'lucide-react';
+import { ShieldAlert, FileText, CheckCircle2, Lock, AlertOctagon, Scale } from 'lucide-react';
 
-export default function TermsOfService({ openSupportModal }) {
+export default function TermsOfService() {
   const [activeSection, setActiveSection] = useState('6');
 
   const sections = [
@@ -19,7 +19,6 @@ export default function TermsOfService({ openSupportModal }) {
     { id: '12', title: '12. Retenções Tributárias e Custos Operacionais' },
     { id: '13', title: '13. Anti-Fraude e Violação de Termos' },
     { id: '14', title: '14. Propriedade Intelectual e Dados' },
-    { id: '15', title: '15. Canal Oficial Exclusivo de Atendimento' },
   ];
 
   const scrollToSection = (id) => {
@@ -53,20 +52,6 @@ export default function TermsOfService({ openSupportModal }) {
               </button>
             ))}
           </nav>
-        </div>
-
-        {/* Support Card */}
-        <div className="bg-white/95 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 space-y-3 shadow-card-shadow">
-          <p className="text-xs text-gray-600 font-medium leading-relaxed">
-            Dúvidas sobre a tramitação da sua solicitação?
-          </p>
-          <button
-            onClick={openSupportModal}
-            className="text-xs text-amber-900 hover:text-amber-950 font-bold flex items-center gap-1 group text-left underline"
-          >
-            E-mail de Suporte Oficial
-            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </button>
         </div>
       </aside>
 
@@ -186,23 +171,6 @@ export default function TermsOfService({ openSupportModal }) {
           <div className="bg-amber-50/60 border border-amber-200 p-4 rounded-xl text-xs space-y-2 font-medium text-gray-800">
             <p>• <strong>Cartão de Crédito:</strong> O estorno é solicitado à credenciadora em até 5 dias úteis após a aprovação do parecer. O crédito na fatura depende da operadora do cartão (podendo ocorrer em até 2 faturas subsequentes).</p>
             <p>• <strong>Pix e Boleto:</strong> A devolução será efetuada exclusivamente via chave Pix associada ao mesmo CPF ou CNPJ titular da compra original.</p>
-          </div>
-        </section>
-
-        {/* Section 15 - Support Email */}
-        <section id="section-15" className="space-y-4 scroll-mt-6 border-t border-gray-200 pt-6">
-          <h2 className="text-xl font-extrabold text-gray-900">15. Canal Oficial Exclusivo de Atendimento</h2>
-          <p className="text-sm leading-relaxed text-gray-600 font-medium">
-            Toda a tramitação, protocolo de documentos e acompanhamento devem ser direcionados ao e-mail oficial:
-          </p>
-          <div className="bg-amber-100 border border-amber-300 rounded-2xl p-5 text-center shadow-sm">
-            <div className="text-xs font-extrabold text-amber-950 uppercase tracking-wider mb-1">E-mail Oficial Forneceup</div>
-            <a
-              href="mailto:forneceupsuporte@gmail.com"
-              className="text-xl font-black text-gray-900 hover:text-amber-700 font-mono underline decoration-amber-500 decoration-2 underline-offset-4"
-            >
-              forneceupsuporte@gmail.com
-            </a>
           </div>
         </section>
       </main>
