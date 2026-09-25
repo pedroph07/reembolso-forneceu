@@ -10,28 +10,12 @@ import SlaTimer from './components/SlaTimer';
 import TermsOfService from './components/TermsOfService';
 import AdminDashboard from './components/AdminDashboard';
 import SupportModal from './components/SupportModal';
-
-// Initial mock data if empty
-const INITIAL_REQUESTS = [
-  {
-    id: 'req-1',
-    email: 'ph645475@gmail.com',
-    orderId: '909090',
-    reason: 'Produto não funcionou como esperado',
-    details: 'Instalei a integração mas não sincronizou o estoque adequadamente.',
-    timestamp: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
-    status: 'Em Análise'
-  },
-  {
-    id: 'req-2',
-    email: 'cliente.antonio@gmail.com',
-    orderId: 'TRD-2024-0089',
-    reason: 'Comprei por engano',
-    details: 'Realizei a compra da licença errada no checkout.',
-    timestamp: new Date(Date.now() - 3600 * 1000 * 18).toISOString(),
-    status: 'Aprovado'
-  }
-];
+import { 
+  getReimbursements, 
+  addReimbursement, 
+  updateReimbursementStatus, 
+  isSupabaseConfigured 
+} from './lib/supabase';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('wizard'); // 'wizard' | 'terms' | 'admin'
@@ -46,13 +30,21 @@ export default function App() {
     details: ''
   });
 
-  // Local Storage for Requests
-  const [requests, setRequests] = useState(() => {
-    const saved = localStorage.getItem('forneceup_reimbursements');
-    return saved ? JSON.parse(saved) : INITIAL_REQUESTS;
-  });
-
+  // Requests state
+  const [requests, setRequests] = useState([]);
   const [activeRequest, setActiveRequest] = useState(null);
+
+  // Fetch requests on mount
+  useEffect(() => {
+    getReimbursements().then(data => setRequests(data));
+  }, []);
+
+  // Sync to localStorage as backup
+  useEffect(() => {
+    if (requests.length > 0) {
+      localStorage.setItem('forneceup_reimbursements', JSON.stringify(requests));
+    }
+  }, [requests]);
 
   // Check URL slug for /ph01 access
   useEffect(() => {
@@ -70,10 +62,6 @@ export default function App() {
     window.addEventListener('popstate', checkSlug);
     return () => window.removeEventListener('popstate', checkSlug);
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('forneceup_reimbursements', JSON.stringify(requests));
-  }, [requests]);
 
   // Handle Step Advancement
   const handleNextStep = (nextStep, foundRequest = null) => {
@@ -98,8 +86,8 @@ export default function App() {
   };
 
   // Final Submission
-  const handleSubmitRefund = () => {
-    const newReq = {
+  const handleSubmitRefund = async () => {
+    const rawReq = {
       id: `req-${Date.now()}`,
       email: formData.email,
       orderId: formData.orderId,
@@ -109,8 +97,11 @@ export default function App() {
       status: 'Em Análise'
     };
 
-    setRequests([newReq, ...requests]);
-    setActiveRequest(newReq);
+    // Save to Supabase / LocalStorage
+    const savedRecord = await addReimbursement(rawReq);
+
+    setRequests(prev => [savedRecord, ...prev]);
+    setActiveRequest(savedRecord);
     setCurrentStep(4);
 
     // Launch celebratory confetti in gold/yellow
@@ -128,7 +119,8 @@ export default function App() {
     setCurrentStep(1);
   };
 
-  const updateRequestStatus = (id, newStatus) => {
+  const handleStatusUpdate = async (id, newStatus) => {
+    await updateReimbursementStatus(id, newStatus);
     setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
     if (activeRequest && activeRequest.id === id) {
       setActiveRequest(prev => ({ ...prev, status: newStatus }));
@@ -136,7 +128,8 @@ export default function App() {
   };
 
   const clearAllRequests = () => {
-    setRequests(INITIAL_REQUESTS);
+    localStorage.removeItem('forneceup_reimbursements');
+    getReimbursements().then(data => setRequests(data));
     resetForm();
   };
 
@@ -216,18 +209,19 @@ export default function App() {
         {activeTab === 'admin' && (
           <AdminDashboard
             requests={requests}
-            updateStatus={updateRequestStatus}
+            updateStatus={handleStatusUpdate}
             clearAllRequests={clearAllRequests}
+            isSupabase={isSupabaseConfigured}
           />
         )}
       </main>
 
-      {/* Floating 72h SLA Timer Badge */}
+      {/* Floating SLA Timer Badge */}
       {(currentStep === 4 || activeRequest) && (
         <SlaTimer startTime={activeRequest?.timestamp || new Date().toISOString()} />
       )}
 
-      {/* Direct Support Modal displaying email forneceupsuporte@gmail.com */}
+      {/* Direct Support Modal */}
       <SupportModal
         isOpen={isSupportOpen}
         onClose={() => setIsSupportOpen(false)}

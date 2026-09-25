@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Search, CheckCircle, XCircle, Clock, ShieldCheck, Filter, ChevronDown, User, DollarSign, RefreshCw, Key, Link as LinkIcon, Check } from 'lucide-react';
+import { Search, CheckCircle, XCircle, Clock, ShieldCheck, Filter, ChevronDown, User, DollarSign, RefreshCw, Key, Link as LinkIcon, Check, Database } from 'lucide-react';
 
-export default function AdminDashboard({ requests, updateStatus, clearAllRequests }) {
+export default function AdminDashboard({ requests, updateStatus, clearAllRequests, isSupabase }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('Todos');
   const [copiedLink, setCopiedLink] = useState(false);
@@ -32,8 +32,19 @@ export default function AdminDashboard({ requests, updateStatus, clearAllRequest
       {/* Top Secret Slug Banner */}
       <div className="bg-white/95 backdrop-blur-md border border-amber-300 rounded-3xl p-6 shadow-card-shadow flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-black text-xs font-black shadow-glow-yellow mb-2">
-            <Key className="w-3.5 h-3.5" /> Acesso Restrito por Slug: /ph01
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400 text-black text-xs font-black shadow-glow-yellow">
+              <Key className="w-3.5 h-3.5" /> Acesso Restrito por Slug: /ph01
+            </span>
+            {isSupabase ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-extrabold">
+                <Database className="w-3 h-3 text-emerald-600" /> Supabase Conectado
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 border border-gray-300 text-gray-700 text-xs font-bold">
+                <Database className="w-3 h-3 text-gray-500" /> Modo Local (Aguardando Chaves Supabase)
+              </span>
+            )}
           </div>
           <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">
             Banco de Dados & Respostas de Reembolso
@@ -57,7 +68,7 @@ export default function AdminDashboard({ requests, updateStatus, clearAllRequest
             className="text-xs px-3.5 py-2.5 rounded-xl bg-gray-100 border border-gray-300 text-gray-700 hover:text-black hover:bg-gray-200 font-bold transition-all flex items-center gap-1.5"
           >
             <RefreshCw className="w-3.5 h-3.5" />
-            Resetar Banco
+            Recarregar Dados
           </button>
         </div>
       </div>
