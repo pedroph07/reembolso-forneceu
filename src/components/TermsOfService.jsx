@@ -9,16 +9,12 @@ export default function TermsOfService() {
     { id: '2', title: '2. Descrição dos Serviços' },
     { id: '3', title: '3. Regras de Cadastro e Segurança' },
     { id: '4', title: '4. Planos, Assinaturas e Renovações' },
-    { id: '5', title: '5. Liberação e Nível de Acesso' },
-    { id: '6', title: '6. Política Geral de Reembolso' },
-    { id: '7', title: '7. Prazo de Perícia (15 a 30 Dias Úteis)' },
-    { id: '8', title: '8. Etapas de Auditoria & Verificação' },
-    { id: '9', title: '9. Hipóteses de Indeferimento (Não Elegíveis)' },
-    { id: '10', title: '10. Documentação Exigida do Cliente' },
-    { id: '11', title: '11. Regras para Pix, Boleto e Cartão' },
-    { id: '12', title: '12. Retenções Tributárias e Custos Operacionais' },
-    { id: '13', title: '13. Anti-Fraude e Violação de Termos' },
-    { id: '14', title: '14. Propriedade Intelectual e Dados' },
+    { id: '5', title: '5. Política Geral de Reembolso' },
+    { id: '6', title: '6. Prazo de Perícia (15 a 30 Dias Úteis)' },
+    { id: '7', title: '7. Etapas de Auditoria Sequencial' },
+    { id: '8', title: '8. Hipóteses de Indeferimento' },
+    { id: '9', title: '9. Regras de Ressarcimento Financeiro' },
+    { id: '10', title: '10. Propriedade Intelectual e Foro' },
   ];
 
   const scrollToSection = (id) => {
@@ -35,7 +31,7 @@ export default function TermsOfService() {
       <aside className="w-full md:w-64 shrink-0 space-y-6">
         <div className="bg-white/95 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 sticky top-6 shadow-card-shadow">
           <h3 className="text-xs font-extrabold tracking-wider text-amber-950 uppercase mb-4 flex items-center gap-1.5">
-            <Scale className="w-4 h-4 text-amber-600" /> Índice dos Termos
+            <Scale className="w-4 h-4 text-amber-600" /> Índice dos Termos (10 Seções)
           </h3>
           <nav className="space-y-1 text-xs">
             {sections.map((sec) => (
@@ -60,14 +56,14 @@ export default function TermsOfService() {
         <div className="border-b border-gray-200 pb-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-              Regulamento Geral & Política de Reembolso
+              Termos de Uso & Política de Reembolso
             </h1>
             <p className="text-xs text-amber-900 font-bold mt-1">
-              Diretrizes Oficiais de Auditoria, Prazos de Perícia e Regras de Devolução Forneceup
+              Regulamento Oficial da Plataforma Forneceup em 10 Seções Integrais
             </p>
           </div>
           <span className="text-[11px] font-extrabold uppercase tracking-widest text-amber-950 bg-amber-100 px-3 py-1.5 rounded-full border border-amber-300">
-            EM VIGOR
+            10 SEÇÕES
           </span>
         </div>
 
@@ -79,6 +75,22 @@ export default function TermsOfService() {
           </p>
         </section>
 
+        {/* Section 2 */}
+        <section id="section-2" className="space-y-3 scroll-mt-6">
+          <h2 className="text-xl font-extrabold text-gray-900">2. Descrição dos Serviços</h2>
+          <p className="text-sm leading-relaxed text-gray-600 font-medium">
+            A Forneceup disponibiliza aos seus usuários soluções de inteligência de mercado, busca e curadoria de fornecedores, integração de e-commerce e ferramentas de automação de suprimentos B2B.
+          </p>
+        </section>
+
+        {/* Section 3 */}
+        <section id="section-3" className="space-y-3 scroll-mt-6">
+          <h2 className="text-xl font-extrabold text-gray-900">3. Regras de Cadastro e Segurança</h2>
+          <p className="text-sm leading-relaxed text-gray-600 font-medium">
+            O usuário é o único responsável pela guarda e confidencialidade de suas credenciais de acesso. O compartilhamento de conta com terceiros ou uso de automações não autorizadas ensejará o bloqueio imediato sem direito a ressarcimento.
+          </p>
+        </section>
+
         {/* Section 4 */}
         <section id="section-4" className="space-y-3 scroll-mt-6">
           <h2 className="text-xl font-extrabold text-gray-900">4. Planos, Assinaturas e Renovações Automáticas</h2>
@@ -87,14 +99,14 @@ export default function TermsOfService() {
           </p>
         </section>
 
-        {/* Section 6 - Highlighted Refund Policy */}
-        <section id="section-6" className="space-y-4 scroll-mt-6 bg-amber-50/80 border-2 border-amber-300 p-6 rounded-2xl shadow-sm">
+        {/* Section 5 - Refund Policy */}
+        <section id="section-5" className="space-y-4 scroll-mt-6 bg-amber-50/80 border-2 border-amber-300 p-6 rounded-2xl shadow-sm">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-amber-400 text-black flex items-center justify-center font-bold">
               <ShieldAlert className="w-5 h-5 stroke-[2.5]" />
             </div>
             <div>
-              <h2 className="text-xl font-extrabold text-amber-950">6. Política Geral de Reembolso e Devoluções</h2>
+              <h2 className="text-xl font-extrabold text-amber-950">5. Política Geral de Reembolso e Devoluções</h2>
               <span className="text-xs font-bold text-amber-900">Procedimento de auditoria preventiva e análise de consumo</span>
             </div>
           </div>
@@ -104,9 +116,9 @@ export default function TermsOfService() {
           </p>
         </section>
 
-        {/* Section 7 - Extended 15-30 Business Days SLA */}
-        <section id="section-7" className="space-y-3 scroll-mt-6">
-          <h2 className="text-xl font-extrabold text-gray-900">7. Prazo Extensivo de Perícia e Análise (15 a 30 Dias Úteis)</h2>
+        {/* Section 6 - Extended SLA */}
+        <section id="section-6" className="space-y-3 scroll-mt-6">
+          <h2 className="text-xl font-extrabold text-gray-900">6. Prazo Extensivo de Perícia e Análise (15 a 30 Dias Úteis)</h2>
           <p className="text-sm leading-relaxed text-gray-600 font-medium">
             Devido à natureza dos serviços digitais da Forneceup (inteligência de mercado, relatórios de fornecedores e integrações), toda solicitação exige verificação individual de logs no banco de dados.
           </p>
@@ -115,9 +127,9 @@ export default function TermsOfService() {
           </div>
         </section>
 
-        {/* Section 8 - 4-Step Verification Pipeline */}
-        <section id="section-8" className="space-y-4 scroll-mt-6">
-          <h2 className="text-xl font-extrabold text-gray-900">8. Etapas de Auditoria & Verificação Sequencial</h2>
+        {/* Section 7 - 4-Step Verification Pipeline */}
+        <section id="section-7" className="space-y-4 scroll-mt-6">
+          <h2 className="text-xl font-extrabold text-gray-900">7. Etapas de Auditoria & Verificação Sequencial</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl space-y-2">
               <div className="text-xs font-extrabold text-amber-900 uppercase">1. Triagem Cadastral e Anti-Fraude</div>
@@ -149,9 +161,9 @@ export default function TermsOfService() {
           </div>
         </section>
 
-        {/* Section 9 - Refusal Reasons */}
-        <section id="section-9" className="space-y-3 scroll-mt-6">
-          <h2 className="text-xl font-extrabold text-gray-900">9. Hipóteses de Indeferimento Definitivo (Não Elegíveis)</h2>
+        {/* Section 8 - Refusal Reasons */}
+        <section id="section-8" className="space-y-3 scroll-mt-6">
+          <h2 className="text-xl font-extrabold text-gray-900">8. Hipóteses de Indeferimento Definitivo (Não Elegíveis)</h2>
           <p className="text-sm leading-relaxed text-gray-600 font-medium">
             Será negada e indeferida qualquer solicitação de devolução de pagamento que se enquadre em um dos seguintes itens:
           </p>
@@ -165,13 +177,21 @@ export default function TermsOfService() {
           </ul>
         </section>
 
-        {/* Section 10 & 11 - Payment Methods & Processing */}
-        <section id="section-11" className="space-y-3 scroll-mt-6">
-          <h2 className="text-xl font-extrabold text-gray-900">11. Regras para Ressarcimento (Pix, Cartão e Boleto)</h2>
+        {/* Section 9 - Payment Methods & Processing */}
+        <section id="section-9" className="space-y-3 scroll-mt-6">
+          <h2 className="text-xl font-extrabold text-gray-900">9. Regras para Ressarcimento Financeiro (Pix, Cartão e Boleto)</h2>
           <div className="bg-amber-50/60 border border-amber-200 p-4 rounded-xl text-xs space-y-2 font-medium text-gray-800">
             <p>• <strong>Cartão de Crédito:</strong> O estorno é solicitado à credenciadora em até 5 dias úteis após a aprovação do parecer. O crédito na fatura depende da operadora do cartão (podendo ocorrer em até 2 faturas subsequentes).</p>
             <p>• <strong>Pix e Boleto:</strong> A devolução será efetuada exclusivamente via chave Pix associada ao mesmo CPF ou CNPJ titular da compra original.</p>
           </div>
+        </section>
+
+        {/* Section 10 - Intellectual Property & Jurisdiction */}
+        <section id="section-10" className="space-y-3 scroll-mt-6 border-t border-gray-200 pt-6">
+          <h2 className="text-xl font-extrabold text-gray-900">10. Propriedade Intelectual e Foro</h2>
+          <p className="text-sm leading-relaxed text-gray-600 font-medium">
+            Todos os direitos sobre a marca, dados de fornecedores e código da plataforma Forneceup são reservados. Para a resolução de eventuais litígios oriundos deste contrato, fica eleito o Foro da Comarca da Capital.
+          </p>
         </section>
       </main>
     </div>
