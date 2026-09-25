@@ -8,7 +8,7 @@ import StepConfirmation from './components/steps/StepConfirmation';
 import StepProcessing from './components/steps/StepProcessing';
 import SlaTimer from './components/SlaTimer';
 import TermsOfService from './components/TermsOfService';
-import AdminDashboard from './components/AdminDashboard';
+import SupportModal from './components/SupportModal';
 
 // Initial mock data if empty
 const INITIAL_REQUESTS = [
@@ -35,7 +35,7 @@ const INITIAL_REQUESTS = [
 export default function App() {
   const [activeTab, setActiveTab] = useState('wizard');
   const [currentStep, setCurrentStep] = useState(1);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -110,20 +110,6 @@ export default function App() {
     setCurrentStep(1);
   };
 
-  const updateRequestStatus = (id, newStatus) => {
-    setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
-    if (activeRequest && activeRequest.id === id) {
-      setActiveRequest(prev => ({ ...prev, status: newStatus }));
-    }
-  };
-
-  const clearAllRequests = () => {
-    setRequests(INITIAL_REQUESTS);
-    resetForm();
-  };
-
-  const pendingCount = requests.filter(r => r.status === 'Em Análise').length;
-
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-gray-900 flex flex-col font-sans relative selection:bg-amber-300 selection:text-black">
       {/* Background radial glows */}
@@ -133,18 +119,7 @@ export default function App() {
       {/* Main Top Header Navigation */}
       <Header
         activeTab={activeTab}
-        setActiveTab={(tab) => {
-          setActiveTab(tab);
-          if (tab === 'admin') setIsAdmin(true);
-          else setIsAdmin(false);
-        }}
-        isAdmin={isAdmin}
-        setIsAdmin={(val) => {
-          setIsAdmin(val);
-          if (val) setActiveTab('admin');
-          else setActiveTab('wizard');
-        }}
-        pendingCount={pendingCount}
+        setActiveTab={setActiveTab}
       />
 
       {/* Main Content Area */}
@@ -157,6 +132,7 @@ export default function App() {
               setStep={(s) => setCurrentStep(s)}
               formData={formData}
               resetForm={resetForm}
+              openSupportModal={() => setIsSupportOpen(true)}
             />
 
             {/* Step Wizard Container */}
@@ -200,15 +176,7 @@ export default function App() {
         )}
 
         {activeTab === 'terms' && (
-          <TermsOfService />
-        )}
-
-        {activeTab === 'admin' && (
-          <AdminDashboard
-            requests={requests}
-            updateStatus={updateRequestStatus}
-            clearAllRequests={clearAllRequests}
-          />
+          <TermsOfService openSupportModal={() => setIsSupportOpen(true)} />
         )}
       </main>
 
@@ -216,6 +184,12 @@ export default function App() {
       {(currentStep === 4 || activeRequest) && (
         <SlaTimer startTime={activeRequest?.timestamp || new Date().toISOString()} />
       )}
+
+      {/* Direct Support Modal displaying email forneceupsuporte@gmail.com */}
+      <SupportModal
+        isOpen={isSupportOpen}
+        onClose={() => setIsSupportOpen(false)}
+      />
     </div>
   );
 }

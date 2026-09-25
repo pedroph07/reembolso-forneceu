@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ShieldAlert, FileText, CheckCircle2, Lock, AlertOctagon, Scale } from 'lucide-react';
+import { ShieldAlert, FileText, CheckCircle2, Lock, AlertOctagon, Scale, ChevronRight } from 'lucide-react';
 
-export default function TermsOfService() {
+export default function TermsOfService({ openSupportModal }) {
   const [activeSection, setActiveSection] = useState('6');
 
   const sections = [
@@ -29,8 +29,8 @@ export default function TermsOfService() {
     <div className="w-full max-w-5xl mx-auto px-4 py-6 flex flex-col md:flex-row gap-8">
       {/* Sidebar TOC Navigation */}
       <aside className="w-full md:w-64 shrink-0 space-y-6">
-        <div className="bg-white/95 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 sticky top-6 shadow-card-shadow">
-          <h3 className="text-xs font-extrabold tracking-wider text-amber-950 uppercase mb-4 flex items-center gap-1.5">
+        <div className="bg-white/95 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 sticky top-6 shadow-card-shadow space-y-4">
+          <h3 className="text-xs font-extrabold tracking-wider text-amber-950 uppercase flex items-center gap-1.5">
             <Scale className="w-4 h-4 text-amber-600" /> Índice dos Termos (10 Seções)
           </h3>
           <nav className="space-y-1 text-xs">
@@ -48,6 +48,20 @@ export default function TermsOfService() {
               </button>
             ))}
           </nav>
+        </div>
+
+        {/* Support Card */}
+        <div className="bg-white/95 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 space-y-3 shadow-card-shadow">
+          <p className="text-xs text-gray-600 font-medium leading-relaxed">
+            Dúvidas sobre os nossos termos?
+          </p>
+          <button
+            onClick={openSupportModal}
+            className="text-xs text-amber-900 hover:text-amber-950 font-bold flex items-center gap-1 group text-left underline"
+          >
+            Fale com o suporte
+            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </aside>
 

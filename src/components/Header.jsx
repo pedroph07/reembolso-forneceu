@@ -1,7 +1,7 @@
 import React from 'react';
-import { Sun, ShieldCheck, FileText, UserCheck, Sparkles } from 'lucide-react';
+import { Sun } from 'lucide-react';
 
-export default function Header({ activeTab, setActiveTab, isAdmin, setIsAdmin, pendingCount }) {
+export default function Header({ activeTab, setActiveTab }) {
   return (
     <header className="w-full max-w-5xl mx-auto px-4 pt-6 pb-4">
       <div className="bg-white/90 backdrop-blur-md border border-amber-200/80 rounded-full px-6 py-3 flex items-center justify-between shadow-card-shadow transition-all duration-300">
@@ -47,32 +47,8 @@ export default function Header({ activeTab, setActiveTab, isAdmin, setIsAdmin, p
           </button>
         </div>
 
-        {/* Action Controls */}
+        {/* Theme icon */}
         <div className="flex items-center gap-3">
-          {/* Admin Toggle button */}
-          <button
-            onClick={() => {
-              setIsAdmin(!isAdmin);
-              if (!isAdmin) setActiveTab('admin');
-              else setActiveTab('wizard');
-            }}
-            className={`flex items-center gap-2 text-xs px-4 py-2 rounded-full font-bold border transition-all ${
-              isAdmin 
-                ? 'bg-amber-400 text-black border-amber-500 shadow-glow-yellow' 
-                : 'bg-amber-50 text-amber-900 border-amber-200 hover:bg-amber-100 hover:border-amber-300'
-            }`}
-            title="Alternar visão entre Cliente e Suporte/Admin"
-          >
-            <UserCheck className="w-3.5 h-3.5" />
-            <span>{isAdmin ? 'Painel Admin (Ativo)' : 'Painel Suporte'}</span>
-            {pendingCount > 0 && !isAdmin && (
-              <span className="bg-amber-500 text-black font-extrabold text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
-                {pendingCount}
-              </span>
-            )}
-          </button>
-
-          {/* Theme icon */}
           <button 
             className="w-9 h-9 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 hover:bg-amber-100 transition-colors"
             title="Tema Amarelo & Branco"

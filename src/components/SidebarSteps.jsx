@@ -1,7 +1,7 @@
 import React from 'react';
-import { Check, RefreshCw, Mail, Hash } from 'lucide-react';
+import { Check, HelpCircle, ChevronRight, RefreshCw, Mail, Hash } from 'lucide-react';
 
-export default function SidebarSteps({ currentStep, setStep, formData, resetForm }) {
+export default function SidebarSteps({ currentStep, setStep, formData, resetForm, openSupportModal }) {
   const steps = [
     { id: 1, label: '1. Identificação' },
     { id: 2, label: '2. Motivo' },
@@ -70,6 +70,23 @@ export default function SidebarSteps({ currentStep, setStep, formData, resetForm
             );
           })}
         </div>
+      </div>
+
+      {/* Support Card with Fale com o suporte */}
+      <div className="bg-white/90 backdrop-blur-md border border-amber-200/80 rounded-2xl p-5 flex flex-col gap-3 shadow-card-shadow">
+        <div className="w-8 h-8 rounded-full bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-800 font-bold">
+          <HelpCircle className="w-4 h-4" />
+        </div>
+        <p className="text-xs text-gray-600 leading-relaxed font-medium">
+          Dúvidas sobre o reembolso ou os nossos termos?
+        </p>
+        <button
+          onClick={openSupportModal}
+          className="text-xs text-amber-800 hover:text-amber-950 font-bold flex items-center gap-1 group text-left pt-1"
+        >
+          Fale com o suporte
+          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </button>
       </div>
 
       {/* Customer Info Card */}
