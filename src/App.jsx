@@ -8,6 +8,7 @@ import StepConfirmation from './components/steps/StepConfirmation';
 import StepProcessing from './components/steps/StepProcessing';
 import SlaTimer from './components/SlaTimer';
 import TermsOfService from './components/TermsOfService';
+import AdminDashboard from './components/AdminDashboard';
 import SupportModal from './components/SupportModal';
 
 // Initial mock data if empty
@@ -33,7 +34,7 @@ const INITIAL_REQUESTS = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('wizard');
+  const [activeTab, setActiveTab] = useState('wizard'); // 'wizard' | 'terms' | 'admin'
   const [currentStep, setCurrentStep] = useState(1);
   const [isSupportOpen, setIsSupportOpen] = useState(false);
 
@@ -52,6 +53,23 @@ export default function App() {
   });
 
   const [activeRequest, setActiveRequest] = useState(null);
+
+  // Check URL slug for /ph01 access
+  useEffect(() => {
+    const checkSlug = () => {
+      const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
+      const search = window.location.search.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+
+      if (path === '/ph01' || search.includes('ph01') || hash === '#ph01') {
+        setActiveTab('admin');
+      }
+    };
+
+    checkSlug();
+    window.addEventListener('popstate', checkSlug);
+    return () => window.removeEventListener('popstate', checkSlug);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('forneceup_reimbursements', JSON.stringify(requests));
@@ -110,6 +128,18 @@ export default function App() {
     setCurrentStep(1);
   };
 
+  const updateRequestStatus = (id, newStatus) => {
+    setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
+    if (activeRequest && activeRequest.id === id) {
+      setActiveRequest(prev => ({ ...prev, status: newStatus }));
+    }
+  };
+
+  const clearAllRequests = () => {
+    setRequests(INITIAL_REQUESTS);
+    resetForm();
+  };
+
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-gray-900 flex flex-col font-sans relative selection:bg-amber-300 selection:text-black">
       {/* Background radial glows */}
@@ -119,7 +149,11 @@ export default function App() {
       {/* Main Top Header Navigation */}
       <Header
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={(tab) => {
+          setActiveTab(tab);
+          if (tab === 'wizard') window.history.pushState({}, '', '/');
+          else if (tab === 'terms') window.history.pushState({}, '', '/termos');
+        }}
       />
 
       {/* Main Content Area */}
@@ -177,6 +211,14 @@ export default function App() {
 
         {activeTab === 'terms' && (
           <TermsOfService openSupportModal={() => setIsSupportOpen(true)} />
+        )}
+
+        {activeTab === 'admin' && (
+          <AdminDashboard
+            requests={requests}
+            updateStatus={updateRequestStatus}
+            clearAllRequests={clearAllRequests}
+          />
         )}
       </main>
 
